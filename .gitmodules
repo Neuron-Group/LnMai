@@ -1,0 +1,4 @@
+[submodule "lnmai-core"]
+	path = lnmai-core
+	url = git@github.com:Neuron-Group/lnmai-core.git
+
