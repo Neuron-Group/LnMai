@@ -4,6 +4,9 @@ use std::fs;
 use std::path::PathBuf;
 use std::process::Command;
 
+const JUDGE_AREAS_FBX: &str = "assets/sensor_layout/JudgeAreas.fbx";
+const SENSOR_SCENE_UNITY: &str = "assets/sensor_layout/Test.unity";
+
 pub struct ExactRegion {
     pub index: usize,
     pub label: &'static str,
@@ -136,7 +139,7 @@ pub fn load_exact_regions() -> Option<Vec<ExactRegion>> {
 }
 
 fn export_reference_obj() -> Result<PathBuf, ()> {
-    let fbx_path = PathBuf::from("reference/MajdataPlay/Assets/Models/JudgeAreas.fbx");
+    let fbx_path = PathBuf::from(JUDGE_AREAS_FBX);
     if !fbx_path.exists() {
         return Err(());
     }
@@ -189,8 +192,7 @@ fn parse_obj(text: &str) -> (Vec<(f32, f32)>, Vec<MeshGroup>) {
 }
 
 fn parse_scene_instances() -> Result<Vec<SceneInstance>, ()> {
-    let scene =
-        fs::read_to_string("reference/MajdataPlay/Assets/Scenes/Test.unity").map_err(|_| ())?;
+    let scene = fs::read_to_string(SENSOR_SCENE_UNITY).map_err(|_| ())?;
     let blocks = scene.split("--- !u!1 ").skip(1).collect::<Vec<_>>();
     let mut instances = Vec::new();
     let family_map = mesh_family_map();
