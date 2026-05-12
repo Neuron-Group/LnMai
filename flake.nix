@@ -12,9 +12,21 @@
       devShells = forAllSystems (system:
         let
           pkgs = import nixpkgs { inherit system; };
+          runtimeLibs = with pkgs; [
+            libx11
+            libxcursor
+            libxrandr
+            libxi
+            libxext
+            libxinerama
+            libxcb
+            libxkbcommon
+            libglvnd
+          ];
         in {
           default = pkgs.mkShell {
             packages = with pkgs; [
+              assimp
               elan
               rustc
               cargo
@@ -23,13 +35,22 @@
               clang
               cmake
               git
+              libx11
+              libxcursor
+              libxrandr
+              libxi
+              libxext
+              libxinerama
+              libxcb
+              libxkbcommon
+              libglvnd
             ];
 
             shellHook = ''
+              export LD_LIBRARY_PATH=${pkgs.lib.makeLibraryPath runtimeLibs}:$LD_LIBRARY_PATH
               echo "LnMai dev shell ready"
             '';
           };
         });
     };
 }
-

@@ -70,3 +70,11 @@ judgment core and Rust as the host runtime.
 - Keep native build deps in the shell so `lake build` and `cargo check` work
   from the same entry point.
 
+## Display Model
+
+- Follow the reference ordering: background/video first, then note field,
+  then judge effects and HUD.
+- Keep time/progress as a dedicated overlay rather than blending it into note
+  drawing.
+- Treat judge text and combo feedback as transient effect layers.
+- Keep video playback host-side, synchronized from the shared music clock.

@@ -1,3 +1,6 @@
+[workspace]
+members = ["crates/lnmai-ffi"]
+
 [package]
 name = "lnmai"
 version = "0.1.0"
@@ -5,4 +8,4 @@ edition = "2021"
 
 [dependencies]
 macroquad = "0.4"
-
+lnmai-ffi = { path = "crates/lnmai-ffi" }
